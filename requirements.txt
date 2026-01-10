@@ -1,5 +1,0 @@
-flask
-gitpython
-python-dotenv
-gunicorn
-
