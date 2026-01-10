@@ -1,24 +1,49 @@
-import random, datetime, os
+import random
+import datetime
+import os
 from git import Repo
 
+REPO_PATH = r"C:\Users\Admin\Desktop\GitBot"
+LOG_FILE = "logs/daily_log.md"
+
 LEVELS = {
-    "low": (1, 3),
-    "medium": (5, 8),
-    "high": (10, 15)
+    "1": (1, 3),     # Low
+    "2": (5, 8),     # Medium
+    "3": (10, 15)    # High
 }
 
-def run_contribution(level, repo_path):
-    min_c, max_c = LEVELS[level]
+def make_change(commit_no):
+    os.makedirs("logs", exist_ok=True)
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
+        f.write(f"\n- Update {commit_no} at {datetime.datetime.now()}")
+
+def main():
+    print("Choose Contribution Level:")
+    print("1. Low")
+    print("2. Medium")
+    print("3. High")
+
+    choice = input("Enter choice (1/2/3): ").strip()
+
+    if choice not in LEVELS:
+        print("Invalid choice")
+        return
+
+    min_c, max_c = LEVELS[choice]
     commits = random.randint(min_c, max_c)
 
-    repo = Repo(repo_path)
-    os.makedirs("logs", exist_ok=True)
+    repo = Repo(REPO_PATH)
 
     for i in range(commits):
-        with open("logs/daily_log.md", "a") as f:
-            f.write(f"\n- {level} update {i+1} at {datetime.datetime.now()}")
+        make_change(i + 1)
         repo.git.add(all=True)
-        repo.index.commit(f"{level.capitalize()} contribution #{i+1}")
+        repo.index.commit(f"Local automated contribution #{i+1}")
 
-    repo.remote("origin").push()
-    return commits
+    print(f"✅ {commits} commits created")
+
+    origin = repo.remote(name="origin")
+    origin.push()
+    print("🚀 Pushed to GitHub successfully")
+
+if __name__ == "__main__":
+    main()
