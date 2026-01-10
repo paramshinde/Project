@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GitBot Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>⚙️ GitHub Contribution Control</h2>
+
+        <form method="POST">
+            <button class="low" name="level" value="low">Low Contribution</button>
+            <button class="medium" name="level" value="medium">Medium Contribution</button>
+            <button class="high" name="level" value="high">High Contribution</button>
+        </form>
+
+        {% if message %}
+            <p class="success">{{ message }}</p>
+        {% endif %}
+
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+</body>
+</html>
