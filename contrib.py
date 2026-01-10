@@ -41,7 +41,9 @@ def main():
         repo.index.commit(f"Automated work log update #{i+1}")
 
     print(f" {commits} commits created successfully")
-    print(" Now run: git push origin main")
+    origin = repo.remote(name="origin")
+    origin.push()
+    print(" Commits pushed to GitHub automatically")
 
 if __name__ == "__main__":
     main()
