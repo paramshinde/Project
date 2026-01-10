@@ -4,7 +4,7 @@ import os
 from git import Repo
 
 # CONFIG
-REPO_PATH = r"C:\path\to\your\repo"   # CHANGE THIS
+REPO_PATH = r"C:\Users\Admin\Desktop\GitBot"   # CHANGE THIS
 LOG_FILE = "logs/daily_log.md"
 
 LEVELS = {
